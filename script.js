@@ -181,3 +181,44 @@ document.addEventListener('DOMContentLoaded', function() {
         setInterval(fetchCryptoPrices, 30000);
     }
 });
+
+// Dark/Light Mode Toggle
+function initThemeToggle() {
+    const themeToggle = document.createElement('button');
+    themeToggle.innerHTML = '🌙';
+    themeToggle.className = 'theme-toggle';
+    themeToggle.id = 'themeToggle';
+    
+    // Add to navigation
+    const navContainer = document.querySelector('.nav-container');
+    if (navContainer) {
+        navContainer.appendChild(themeToggle);
+    }
+    
+    // Check for saved theme or prefer-color-scheme
+    const currentTheme = localStorage.getItem('theme') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.innerHTML = '☀️';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            themeToggle.innerHTML = '☀️';
+        } else {
+            localStorage.setItem('theme', 'light');
+            themeToggle.innerHTML = '🌙';
+        }
+    });
+}
+
+// Update DOMContentLoaded to include theme toggle
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing code ...
+    initThemeToggle();
+});
