@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Simple form handling for contact page
-    const contactForm = document.querySelector('.contact-form form');
+    // Contact form
+    const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
