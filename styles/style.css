@@ -972,3 +972,87 @@ body {
 .service-card .btn-service:hover::before {
     left: 100%;
 }
+
+/* Calculator Styles */
+.calculator-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.calculator-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
+}
+
+.calculator-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.calculator-card h2 {
+    margin-bottom: 2rem;
+    color: #333;
+    text-align: center;
+}
+
+.calculator-card .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.calculator-card input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #eaeaea;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.calculator-card input:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+
+.results {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #00d4ff;
+}
+
+.results h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item span:first-child {
+    font-weight: 600;
+    color: #333;
+}
+
+.result-item span:last-child {
+    font-weight: bold;
+}
+
+.positive {
+    color: #4CAF50;
+}
+
+.negative {
+    color: #f44336;
+}
