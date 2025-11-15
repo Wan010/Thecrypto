@@ -86,14 +86,20 @@
     </footer>
 
     <script>
-        function showAlert() {
-            alert("Welcome to CryptoHub! This feature is working.");
-        }
+    // Mobile menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("CryptoHub website loaded successfully!");
         
-        // Simple mobile menu
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("CryptoHub loaded successfully!");
-        });
-    </script>
+        // Simple mobile menu toggle (we'll enhance this later)
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+        }
+    });
+</script>
 </body>
 </html>
