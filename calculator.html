@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Calculator - CryptoHub</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🚀 CryptoHub</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="calculator.html" class="nav-link">Calculator</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Crypto Calculator</h1>
+            <p>Calculate your potential profits and investment returns</p>
+        </div>
+    </section>
+
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-grid">
+                <div class="calculator-card">
+                    <h2>Profit Calculator</h2>
+                    <form id="profitCalculator">
+                        <div class="form-group">
+                            <label for="investment">Investment Amount ($)</label>
+                            <input type="number" id="investment" value="1000" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyPrice">Buy Price ($)</label>
+                            <input type="number" id="buyPrice" step="0.0001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sellPrice">Sell Price ($)</label>
+                            <input type="number" id="sellPrice" step="0.0001" required>
+                        </div>
+                        <button type="button" class="btn-primary" onclick="calculateProfit()">Calculate Profit</button>
+                    </form>
+                    
+                    <div class="results" id="profitResults">
+                        <h3>Results</h3>
+                        <div class="result-item">
+                            <span>Coins Purchased:</span>
+                            <span id="coinsResult">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Total Value:</span>
+                            <span id="totalValue">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Profit/Loss:</span>
+                            <span id="profitResult">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Return %:</span>
+                            <span id="returnPercent">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calculator-card">
+                    <h2>Market Cap Calculator</h2>
+                    <form id="marketCapCalculator">
+                        <div class="form-group">
+                            <label for="circulatingSupply">Circulating Supply</label>
+                            <input type="number" id="circulatingSupply" value="21000000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tokenPrice">Token Price ($)</label>
+                            <input type="number" id="tokenPrice" step="0.0001" required>
+                        </div>
+                        <button type="button" class="btn-primary" onclick="calculateMarketCap()">Calculate Market Cap</button>
+                    </form>
+                    
+                    <div class="results" id="marketCapResults">
+                        <h3>Results</h3>
+                        <div class="result-item">
+                            <span>Market Cap:</span>
+                            <span id="marketCapResult">$0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Fully Diluted:</span>
+                            <span id="fullyDiluted">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 CryptoHub. Making crypto easy for everyone.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="calculator.js"></script>
+</body>
+</html>
