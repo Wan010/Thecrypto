@@ -91,3 +91,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Services page functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing code ...
+    
+    // Services page button functionality
+    const serviceButtons = document.querySelectorAll('.btn-service');
+    serviceButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const serviceName = this.closest('.service-card').querySelector('h3').textContent;
+            alert('You clicked on ' + serviceName + '. This would typically show more details about this service.');
+        });
+    });
+    
+    // ... rest of existing code ...
+});
