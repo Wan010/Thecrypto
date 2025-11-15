@@ -4,28 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptoHub - Bitcoin & Crypto Trading</title>
+    <meta name="description" content="CryptoHub - Your gateway to cryptocurrency trading and investment">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
     <!-- Navigation -->
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <h2>🚀 CryptoHub</h2>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🚀 CryptoHub</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
-        <ul class="nav-menu">
-            <li><a href="index.html" class="nav-link">Home</a></li>
-            <li><a href="about.html" class="nav-link">About</a></li>
-            <li><a href="services.html" class="nav-link">Services</a></li>
-            <li><a href="contact.html" class="nav-link">Contact</a></li>
-        </ul>
-        <div class="hamburger">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-    </div>
-</nav>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -33,8 +34,8 @@
             <h1>Start Your Crypto Journey Today</h1>
             <p>Buy, sell, and trade cryptocurrencies with confidence</p>
             <div class="hero-buttons">
-                <button class="btn-primary" onclick="showAlert()">Get Started</button>
-                <button class="btn-secondary" onclick="showAlert()">Learn More</button>
+                <button class="btn-primary" id="getStartedBtn">Get Started</button>
+                <button class="btn-secondary" id="learnMoreBtn">Learn More</button>
             </div>
         </div>
     </section>
@@ -84,27 +85,26 @@
         </div>
     </section>
 
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated</h2>
+                <p>Get the latest crypto news and market insights</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit" class="btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 CryptoHub. Making crypto easy for everyone.</p>
         </div>
     </footer>
 
-    <script>
-    // Mobile menu functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log("CryptoHub website loaded successfully!");
-        
-        // Simple mobile menu toggle (we'll enhance this later)
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        if (hamburger) {
-            hamburger.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
-            });
-        }
-    });
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
