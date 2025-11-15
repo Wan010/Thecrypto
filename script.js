@@ -222,3 +222,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // ... existing code ...
     initThemeToggle();
 });
+
+// Blog page functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing code ...
+    
+    // Blog newsletter form
+    const blogNewsletterForm = document.getElementById('blogNewsletterForm');
+    if (blogNewsletterForm) {
+        blogNewsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                alert('Thank you for subscribing to our blog! You will receive updates at: ' + email);
+                this.reset();
+            }
+        });
+    }
+    
+    // Blog read more buttons
+    const readMoreButtons = document.querySelectorAll('.read-more');
+    readMoreButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const blogTitle = this.closest('.blog-card').querySelector('h2').textContent;
+            alert('This would open the full article: ' + blogTitle + '\n\nFor now, this is a demo. In a real website, this would link to the full blog post.');
+        });
+    });
+});
