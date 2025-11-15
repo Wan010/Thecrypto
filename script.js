@@ -107,3 +107,77 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ... rest of existing code ...
 });
+
+// Real Crypto Price API
+async function fetchCryptoPrices() {
+    try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,cardano,solana,binancecoin&vs_currencies=usd&include_24hr_change=true');
+        const data = await response.json();
+        
+        updatePriceDisplay(data);
+    } catch (error) {
+        console.error('Error fetching crypto prices:', error);
+        // Fallback to static prices
+        updatePriceDisplayWithFallback();
+    }
+}
+
+function updatePriceDisplay(data) {
+    const cryptos = [
+        { id: 'bitcoin', symbol: 'BTC', element: document.querySelector('[data-crypto="bitcoin"]') },
+        { id: 'ethereum', symbol: 'ETH', element: document.querySelector('[data-crypto="ethereum"]') },
+        { id: 'cardano', symbol: 'ADA', element: document.querySelector('[data-crypto="cardano"]') },
+        { id: 'solana', symbol: 'SOL', element: document.querySelector('[data-crypto="solana"]') },
+        { id: 'binancecoin', symbol: 'BNB', element: document.querySelector('[data-crypto="binancecoin"]') }
+    ];
+
+    cryptos.forEach(crypto => {
+        if (crypto.element && data[crypto.id]) {
+            const price = data[crypto.id].usd;
+            const change = data[crypto.id].usd_24h_change;
+            
+            crypto.element.innerHTML = `
+                <div class="price">$${price.toLocaleString()}</div>
+                <div class="change ${change >= 0 ? 'positive' : 'negative'}">
+                    ${change ? change.toFixed(2) + '%' : '--%'}
+                </div>
+            `;
+        }
+    });
+}
+
+function updatePriceDisplayWithFallback() {
+    // Fallback prices if API fails
+    const fallbackPrices = {
+        bitcoin: { price: 45231.89, change: 2.34 },
+        ethereum: { price: 3412.56, change: 1.78 },
+        cardano: { price: 1.23, change: -0.45 },
+        solana: { price: 98.76, change: 3.21 },
+        binancecoin: { price: 567.89, change: 0.89 }
+    };
+
+    Object.keys(fallbackPrices).forEach(crypto => {
+        const element = document.querySelector(`[data-crypto="${crypto}"]`);
+        if (element) {
+            const data = fallbackPrices[crypto];
+            element.innerHTML = `
+                <div class="price">$${data.price.toLocaleString()}</div>
+                <div class="change ${data.change >= 0 ? 'positive' : 'negative'}">
+                    ${data.change}%
+                </div>
+            `;
+        }
+    });
+}
+
+// Update DOMContentLoaded to include price fetching
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing code ...
+    
+    // Fetch crypto prices
+    if (document.querySelector('.crypto-prices')) {
+        fetchCryptoPrices();
+        // Update prices every 30 seconds
+        setInterval(fetchCryptoPrices, 30000);
+    }
+});
