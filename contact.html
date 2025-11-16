@@ -4,44 +4,269 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - CryptoHub</title>
-    <link rel="stylesheet" href="styles/style.css">
     <style>
-        /* Additional contact page styles */
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #1a1a1a;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo h2 {
+            color: #00d4ff;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #00d4ff;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
         .contact-section {
             padding: 80px 0;
         }
-        
+
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
         }
-        
+
         .contact-info {
-            background: #f8f9fa;
+            background: white;
             padding: 2rem;
             border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
+        .contact-info h2 {
+            margin-bottom: 2rem;
+            color: #333;
+            font-size: 1.8rem;
+        }
+
         .contact-item {
             margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: white;
+            padding: 1.5rem;
+            background: #f8f9fa;
             border-radius: 8px;
             border-left: 4px solid #00d4ff;
         }
-        
+
+        .contact-item h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item p {
+            color: #666;
+            margin: 0;
+        }
+
         .contact-form-container {
             background: white;
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
+        .contact-form-container h2 {
+            margin-bottom: 2rem;
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-primary {
+            background: #00d4ff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #00b8e6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: #1a1a1a;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                gap: 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 1rem 0;
+            }
+            
+            .page-header {
+                margin-top: 60px;
+                padding: 100px 0 40px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
             .contact-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
+            
+            .contact-info,
+            .contact-form-container {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animation for mobile menu */
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
         }
     </style>
 </head>
@@ -79,45 +304,60 @@
     <section class="contact-section">
         <div class="container">
             <div class="contact-grid">
+                <!-- Contact Information -->
                 <div class="contact-info">
                     <h2>Contact Information</h2>
+                    
                     <div class="contact-item">
                         <h3>📧 Email</h3>
                         <p>support@cryptohub.com</p>
                     </div>
+                    
                     <div class="contact-item">
                         <h3>📞 Phone</h3>
                         <p>+1 (555) 123-4567</p>
                     </div>
+                    
                     <div class="contact-item">
                         <h3>🕒 Support Hours</h3>
                         <p>24/7 Customer Support</p>
                     </div>
+                    
                     <div class="contact-item">
                         <h3>📍 Address</h3>
                         <p>123 Crypto Street<br>Digital City, DC 10101</p>
                     </div>
+                    
+                    <div class="contact-item">
+                        <h3>💬 Live Chat</h3>
+                        <p>Available on our platform</p>
+                    </div>
                 </div>
-                
+
+                <!-- Contact Form -->
                 <div class="contact-form-container">
                     <h2>Send Us a Message</h2>
                     <form id="contactForm">
                         <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            <label for="email">Your Email *</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="subject">Subject</label>
+                            <label for="subject">Subject *</label>
                             <input type="text" id="subject" name="subject" placeholder="What is this regarding?" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" name="message" placeholder="How can we help you?" rows="5" required></textarea>
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" placeholder="How can we help you?" rows="6" required></textarea>
                         </div>
+                        
                         <button type="submit" class="btn-primary">Send Message</button>
                     </form>
                 </div>
@@ -125,6 +365,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 CryptoHub. Making crypto easy for everyone.</p>
@@ -132,31 +373,99 @@
     </footer>
 
     <script>
-        // Contact form functionality
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you within 24 hours.');
-            this.reset();
-        });
-        
         // Mobile menu functionality
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        if (hamburger) {
-            hamburger.addEventListener('click', function() {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Contact page loaded successfully!");
+            
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            // Mobile menu toggle
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (hamburger && navMenu) {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    }
+                });
             });
+            
+            // Contact form handling
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+                    
+                    // Simple validation
+                    if (name && email && subject && message) {
+                        // Show success message
+                        alert('Thank you for your message, ' + name + '! We will get back to you within 24 hours at ' + email + '.');
+                        
+                        // Reset form
+                        contactForm.reset();
+                    } else {
+                        alert('Please fill in all required fields.');
+                    }
+                });
+            }
+            
+            // Add loading animation to form submission
+            const form = document.getElementById('contactForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const button = this.querySelector('button[type="submit"]');
+                    const originalText = button.textContent;
+                    
+                    button.textContent = 'Sending...';
+                    button.disabled = true;
+                    
+                    // Simulate sending delay
+                    setTimeout(function() {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }, 2000);
+                });
+            }
+        });
+
+        // Simple form validation
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !email || !subject || !message) {
+                alert('Please fill in all fields');
+                return false;
+            }
+            
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+            
+            return true;
         }
         
-        // Close mobile menu when clicking links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
     </script>
 </body>
 </html>
