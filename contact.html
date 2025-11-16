@@ -5,29 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - CryptoHub</title>
     <link rel="stylesheet" href="styles/style.css">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'GA_MEASUREMENT_ID');
-</script>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <h2>🚀 CryptoHub</h2>
             </div>
             <ul class="nav-menu">
-    <li><a href="index.html" class="nav-link">Home</a></li>
-    <li><a href="about.html" class="nav-link">About</a></li>
-    <li><a href="services.html" class="nav-link">Services</a></li>
-    <li><a href="blog.html" class="nav-link">Blog</a></li>
-    <li><a href="contact.html" class="nav-link">Contact</a></li>
-</ul>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -36,7 +27,6 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
     <section class="page-header">
         <div class="container">
             <h1>Contact Us</h1>
@@ -44,8 +34,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section">
+    <section class="contact">
         <div class="container">
             <div class="contact-grid">
                 <div class="contact-info">
@@ -62,54 +51,25 @@
                         <h3>🕒 Support Hours</h3>
                         <p>24/7 Customer Support</p>
                     </div>
-                    <div class="contact-item">
-                        <h3>📍 Address</h3>
-                        <p>123 Crypto Street<br>Digital City, DC 10101</p>
-                    </div>
                 </div>
                 
-                <div class="contact-form-container">
-                    <h2>Send Us a Message</h2>
-                    <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
-    <div class="form-group">
-        <label for="name">Your Name *</label>
-        <input type="text" id="name" name="name" required>
-    </div>
-    <div class="form-group">
-        <label for="email">Your Email *</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    <div class="form-group">
-        <label for="subject">Subject *</label>
-        <input type="text" id="subject" name="subject" required>
-    </div>
-    <div class="form-group">
-        <label for="message">Your Message *</label>
-        <textarea id="message" name="message" rows="6" required></textarea>
-    </div>
-    <button type="submit" class="btn-primary">Send Message</button>
-</form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Preview -->
-    <section class="faq-preview">
-        <div class="container">
-            <h2>Common Questions</h2>
-            <div class="faq-grid">
-                <div class="faq-item-preview">
-                    <h3>How do I get started with crypto?</h3>
-                    <p>Create an account, verify your identity, and start with small investments to learn.</p>
-                </div>
-                <div class="faq-item-preview">
-                    <h3>Is my money safe?</h3>
-                    <p>We use bank-level security and cold storage to protect your assets.</p>
-                </div>
-                <div class="faq-item-preview">
-                    <h3>What cryptocurrencies do you support?</h3>
-                    <p>We support 50+ major cryptocurrencies including Bitcoin, Ethereum, and more.</p>
+                <div class="contact-form">
+                    <h2>Send Message</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>
