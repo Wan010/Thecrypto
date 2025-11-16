@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Button functionality for home page
+    // Button functionality
     const getStartedBtn = document.getElementById('getStartedBtn');
     const learnMoreBtn = document.getElementById('learnMoreBtn');
     
@@ -52,191 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Contact form functionality
+    // Contact form
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Get form data
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            // Simple validation
-            if (name && email && subject && message) {
-                // Show success message
-                alert('Thank you for your message, ' + name + '! We will get back to you within 24 hours at ' + email + '.');
-                
-                // Reset form
-                this.reset();
-            } else {
-                alert('Please fill in all required fields.');
-            }
-        });
-    }
-    
-    // Add smooth scrolling for better user experience
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-});
-
-// Services page functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // ... existing code ...
-    
-    // Services page button functionality
-    const serviceButtons = document.querySelectorAll('.btn-service');
-    serviceButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const serviceName = this.closest('.service-card').querySelector('h3').textContent;
-            alert('You clicked on ' + serviceName + '. This would typically show more details about this service.');
-        });
-    });
-    
-    // ... rest of existing code ...
-});
-
-// Real Crypto Price API
-async function fetchCryptoPrices() {
-    try {
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,cardano,solana,binancecoin&vs_currencies=usd&include_24hr_change=true');
-        const data = await response.json();
-        
-        updatePriceDisplay(data);
-    } catch (error) {
-        console.error('Error fetching crypto prices:', error);
-        // Fallback to static prices
-        updatePriceDisplayWithFallback();
-    }
-}
-
-function updatePriceDisplay(data) {
-    const cryptos = [
-        { id: 'bitcoin', symbol: 'BTC', element: document.querySelector('[data-crypto="bitcoin"]') },
-        { id: 'ethereum', symbol: 'ETH', element: document.querySelector('[data-crypto="ethereum"]') },
-        { id: 'cardano', symbol: 'ADA', element: document.querySelector('[data-crypto="cardano"]') },
-        { id: 'solana', symbol: 'SOL', element: document.querySelector('[data-crypto="solana"]') },
-        { id: 'binancecoin', symbol: 'BNB', element: document.querySelector('[data-crypto="binancecoin"]') }
-    ];
-
-    cryptos.forEach(crypto => {
-        if (crypto.element && data[crypto.id]) {
-            const price = data[crypto.id].usd;
-            const change = data[crypto.id].usd_24h_change;
-            
-            crypto.element.innerHTML = `
-                <div class="price">$${price.toLocaleString()}</div>
-                <div class="change ${change >= 0 ? 'positive' : 'negative'}">
-                    ${change ? change.toFixed(2) + '%' : '--%'}
-                </div>
-            `;
-        }
-    });
-}
-
-function updatePriceDisplayWithFallback() {
-    // Fallback prices if API fails
-    const fallbackPrices = {
-        bitcoin: { price: 45231.89, change: 2.34 },
-        ethereum: { price: 3412.56, change: 1.78 },
-        cardano: { price: 1.23, change: -0.45 },
-        solana: { price: 98.76, change: 3.21 },
-        binancecoin: { price: 567.89, change: 0.89 }
-    };
-
-    Object.keys(fallbackPrices).forEach(crypto => {
-        const element = document.querySelector(`[data-crypto="${crypto}"]`);
-        if (element) {
-            const data = fallbackPrices[crypto];
-            element.innerHTML = `
-                <div class="price">$${data.price.toLocaleString()}</div>
-                <div class="change ${data.change >= 0 ? 'positive' : 'negative'}">
-                    ${data.change}%
-                </div>
-            `;
-        }
-    });
-}
-
-// Update DOMContentLoaded to include price fetching
-document.addEventListener('DOMContentLoaded', function() {
-    // ... existing code ...
-    
-    // Fetch crypto prices
-    if (document.querySelector('.crypto-prices')) {
-        fetchCryptoPrices();
-        // Update prices every 30 seconds
-        setInterval(fetchCryptoPrices, 30000);
-    }
-});
-
-// Dark/Light Mode Toggle
-function initThemeToggle() {
-    const themeToggle = document.createElement('button');
-    themeToggle.innerHTML = '🌙';
-    themeToggle.className = 'theme-toggle';
-    themeToggle.id = 'themeToggle';
-    
-    // Add to navigation
-    const navContainer = document.querySelector('.nav-container');
-    if (navContainer) {
-        navContainer.appendChild(themeToggle);
-    }
-    
-    // Check for saved theme or prefer-color-scheme
-    const currentTheme = localStorage.getItem('theme') || 
-                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    
-    if (currentTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeToggle.innerHTML = '☀️';
-    }
-    
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        
-        if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-            themeToggle.innerHTML = '☀️';
-        } else {
-            localStorage.setItem('theme', 'light');
-            themeToggle.innerHTML = '🌙';
-        }
-    });
-}
-
-// Update DOMContentLoaded to include theme toggle
-document.addEventListener('DOMContentLoaded', function() {
-    // ... existing code ...
-    initThemeToggle();
-});
-
-// Blog page functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // ... existing code ...
-    
-    // Blog newsletter form
-    const blogNewsletterForm = document.getElementById('blogNewsletterForm');
-    if (blogNewsletterForm) {
-        blogNewsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            if (email) {
-                alert('Thank you for subscribing to our blog! You will receive updates at: ' + email);
-                this.reset();
-            }
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
         });
     }
     
@@ -245,8 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
     readMoreButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-            const blogTitle = this.closest('.blog-card').querySelector('h2').textContent;
-            alert('This would open the full article: ' + blogTitle + '\n\nFor now, this is a demo. In a real website, this would link to the full blog post.');
+            const blogTitle = this.closest('.blog-post').querySelector('h2').textContent;
+            alert('This would open the full article: ' + blogTitle);
         });
     });
 });
