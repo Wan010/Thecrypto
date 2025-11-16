@@ -1794,3 +1794,51 @@ body.dark-mode .footer {
         align-items: flex-start;
     }
 }
+
+/* Live Ticker */
+.live-ticker {
+    background: #1a1a1a;
+    color: white;
+    padding: 10px 0;
+    overflow: hidden;
+    position: fixed;
+    top: 70px;
+    width: 100%;
+    z-index: 999;
+    border-bottom: 1px solid #333;
+}
+
+.ticker-content {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: ticker 30s linear infinite;
+}
+
+.ticker-label {
+    background: #00d4ff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.ticker-items {
+    display: flex;
+    gap: 30px;
+}
+
+.ticker-item {
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Adjust body padding for ticker */
+body {
+    padding-top: 110px; /* Increased for ticker */
+}
