@@ -1394,3 +1394,245 @@ body.dark-mode .footer {
 .blog-card:nth-child(4) { animation-delay: 0.4s; }
 .blog-card:nth-child(5) { animation-delay: 0.5s; }
 .blog-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Invoice Preview Styles */
+.invoice-preview {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.invoice-simple {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.invoice-form-simple {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.invoice-output-simple {
+    position: sticky;
+    top: 100px;
+}
+
+.invoice-paper-simple {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border: 2px solid #00d4ff;
+    margin-bottom: 1.5rem;
+}
+
+.invoice-header-simple {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #00d4ff;
+}
+
+.invoice-header-simple h3 {
+    color: #00d4ff;
+    margin: 0;
+}
+
+.invoice-header-simple h4 {
+    color: #333;
+    margin: 0;
+}
+
+.invoice-details-simple p {
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.invoice-actions-simple {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Blog Content Styles */
+.blog-content {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.blog-post {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.blog-post:hover {
+    transform: translateY(-5px);
+}
+
+.blog-image {
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-placeholder {
+    font-size: 4rem;
+    opacity: 0.8;
+}
+
+.blog-meta {
+    padding: 1rem 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.blog-date {
+    background: #667eea;
+    color: white;
+    padding: 0.2rem 0.8rem;
+    border-radius: 15px;
+}
+
+.blog-category {
+    background: #f0f0f0;
+    padding: 0.2rem 0.8rem;
+    border-radius: 15px;
+}
+
+.blog-post h2 {
+    padding: 1rem 1.5rem 0;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: #333;
+}
+
+.blog-post p {
+    padding: 0 1.5rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.read-more {
+    display: inline-block;
+    padding: 1rem 1.5rem 1.5rem;
+    color: #00d4ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* Contact Page Styles */
+.contact {
+    padding: 80px 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.contact-info h2 {
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.contact-item {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #00d4ff;
+}
+
+.contact-item h3 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.contact-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.contact-form h2 {
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .invoice-simple {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .invoice-actions-simple {
+        flex-direction: column;
+    }
+    
+    .blog-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+}
