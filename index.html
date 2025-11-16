@@ -658,5 +658,326 @@
             });
         });
     </script>
+
+    <script>
+    // Invoice Generator Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab Switching
+        const typeTabs = document.querySelectorAll('.type-tab');
+        const invoiceForms = document.querySelectorAll('.invoice-form');
+        
+        typeTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const type = this.getAttribute('data-type');
+                
+                // Update active tab
+                typeTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show corresponding form
+                invoiceForms.forEach(form => {
+                    form.classList.remove('active');
+                    if (form.classList.contains(type + '-invoice')) {
+                        form.classList.add('active');
+                    }
+                });
+                
+                updatePreview();
+            });
+        });
+
+        // Add items to regular invoice
+        const addItemBtn = document.getElementById('addRegularItem');
+        const itemsContainer = document.getElementById('regularItemsContainer');
+        
+        if (addItemBtn) {
+            addItemBtn.addEventListener('click', function() {
+                const newItem = document.createElement('div');
+                newItem.className = 'invoice-item';
+                newItem.innerHTML = `
+                    <div class="item-row">
+                        <input type="text" class="item-desc" placeholder="Service description" required>
+                        <input type="number" class="item-qty" placeholder="Qty" value="1" min="1" required>
+                        <input type="number" class="item-price" placeholder="Price" step="0.01" required>
+                        <span class="item-total">$0.00</span>
+                        <button type="button" class="btn-remove-item">×</button>
+                    </div>
+                `;
+                itemsContainer.appendChild(newItem);
+                
+                // Add event listeners to new inputs
+                attachItemListeners(newItem);
+                updatePreview();
+            });
+        }
+
+        // Remove item functionality
+        function attachItemListeners(itemElement) {
+            const inputs = itemElement.querySelectorAll('.item-desc, .item-qty, .item-price');
+            const removeBtn = itemElement.querySelector('.btn-remove-item');
+            
+            inputs.forEach(input => {
+                input.addEventListener('input', updateItemTotal);
+            });
+            
+            removeBtn.addEventListener('click', function() {
+                itemElement.remove();
+                updatePreview();
+            });
+        }
+
+        // Calculate item total
+        function updateItemTotal() {
+            const item = this.closest('.invoice-item');
+            const qty = parseFloat(item.querySelector('.item-qty').value) || 0;
+            const price = parseFloat(item.querySelector('.item-price').value) || 0;
+            const total = item.querySelector('.item-total');
+            
+            total.textContent = '$' + (qty * price).toFixed(2);
+            updatePreview();
+        }
+
+        // Attach listeners to initial items
+        document.querySelectorAll('.invoice-item').forEach(item => {
+            attachItemListeners(item);
+        });
+
+        // Form Submissions
+        document.getElementById('cryptoInvoiceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateCryptoInvoice();
+        });
+
+        document.getElementById('regularInvoiceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateRegularInvoice();
+        });
+
+        document.getElementById('recurringInvoiceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            setupRecurringInvoice();
+        });
+
+        // Action Buttons
+        document.getElementById('downloadInvoice').addEventListener('click', downloadInvoice);
+        document.getElementById('printInvoice').addEventListener('click', printInvoice);
+        document.getElementById('shareInvoice').addEventListener('click', shareInvoice);
+        document.getElementById('saveTemplate').addEventListener('click', saveTemplate);
+        document.getElementById('refreshPreview').addEventListener('click', updatePreview);
+        document.getElementById('togglePreview').addEventListener('click', togglePreview);
+
+        // Set default dates
+        setDefaultDates();
+        updatePreview();
+    });
+
+    // Set default dates
+    function setDefaultDates() {
+        const today = new Date().toISOString().split('T')[0];
+        const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+        
+        // Set due dates to next week
+        document.querySelectorAll('input[type="date"]').forEach(input => {
+            if (input.id.includes('DueDate')) {
+                input.value = nextWeek;
+            } else if (input.id.includes('Date')) {
+                input.value = today;
+            }
+        });
+    }
+
+    // Update Preview
+    function updatePreview() {
+        const activeTab = document.querySelector('.type-tab.active').getAttribute('data-type');
+        const preview = document.getElementById('invoicePreview');
+        
+        if (activeTab === 'crypto') {
+            preview.innerHTML = generateCryptoPreview();
+        } else if (activeTab === 'regular') {
+            preview.innerHTML = generateRegularPreview();
+        } else {
+            preview.innerHTML = generateRecurringPreview();
+        }
+        
+        updateStats();
+    }
+
+    // Generate Crypto Invoice Preview
+    function generateCryptoPreview() {
+        const clientName = document.getElementById('cryptoClientName').value || 'Client Name';
+        const amount = document.getElementById('cryptoAmountUSD').value || '0.00';
+        const service = document.getElementById('cryptoService').value || 'Service Description';
+        const cryptoType = document.getElementById('cryptoType').value;
+        
+        return `
+            <div class="preview-crypto">
+                <div class="preview-header-crypto">
+                    <h2>CRYPTO INVOICE</h2>
+                    <div class="crypto-badge">${cryptoType}</div>
+                </div>
+                <div class="preview-client">
+                    <strong>Bill To:</strong>
+                    <p>${clientName}</p>
+                </div>
+                <div class="preview-amount-crypto">
+                    <div class="crypto-amount">$${amount} USD</div>
+                    <div class="equivalent">≈ 0.0000 ${cryptoType}</div>
+                </div>
+                <div class="preview-service">
+                    <strong>Service:</strong>
+                    <p>${service}</p>
+                </div>
+                <div class="preview-wallet">
+                    <strong>Payment Address:</strong>
+                    <code>bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</code>
+                </div>
+                <div class="preview-qr">
+                    <div class="qr-placeholder">[QR Code]</div>
+                    <p>Scan to pay with ${cryptoType}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    // Generate Regular Invoice Preview
+    function generateRegularPreview() {
+        // Calculate totals from items
+        let subtotal = 0;
+        document.querySelectorAll('.invoice-item').forEach(item => {
+            const qty = parseFloat(item.querySelector('.item-qty').value) || 0;
+            const price = parseFloat(item.querySelector('.item-price').value) || 0;
+            subtotal += qty * price;
+        });
+        
+        const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+        const discount = parseFloat(document.getElementById('discountAmount').value) || 0;
+        const taxAmount = subtotal * (taxRate / 100);
+        const total = subtotal + taxAmount - discount;
+        
+        return `
+            <div class="preview-regular">
+                <div class="preview-header-regular">
+                    <h2>INVOICE</h2>
+                    <div class="invoice-number">#REG-INV-001</div>
+                </div>
+                <div class="preview-details">
+                    <div class="bill-to">
+                        <strong>Bill To:</strong>
+                        <p>Client Business Name</p>
+                    </div>
+                    <div class="invoice-info">
+                        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+                        <p><strong>Due Date:</strong> 7 days</p>
+                    </div>
+                </div>
+                <div class="preview-items">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Professional Services</td>
+                                <td>1</td>
+                                <td>$${subtotal.toFixed(2)}</td>
+                                <td>$${subtotal.toFixed(2)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="preview-totals">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span>$${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax (${taxRate}%):</span>
+                        <span>$${taxAmount.toFixed(2)}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Discount:</span>
+                        <span>-$${discount.toFixed(2)}</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>Total Due:</span>
+                        <span>$${total.toFixed(2)}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Generate Recurring Invoice Preview
+    function generateRecurringPreview() {
+        return `
+            <div class="preview-recurring">
+                <div class="preview-header-recurring">
+                    <h2>RECURRING INVOICE</h2>
+                    <div class="recurring-badge">Monthly</div>
+                </div>
+                <div class="preview-subscription">
+                    <div class="subscription-details">
+                        <p><strong>Client:</strong> Subscription Client</p>
+                        <p><strong>Amount:</strong> $100.00/month</p>
+                        <p><strong>Next Billing:</strong> ${new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()}</p>
+                    </div>
+                </div>
+                <div class="preview-status">
+                    <div class="status-active">Active Subscription</div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Update Stats
+    function updateStats() {
+        // Simulate some stats
+        document.getElementById('totalInvoiced').textContent = '$2,450.00';
+        document.getElementById('invoicesCreated').textContent = '12';
+        document.getElementById('timeSaved').textContent = '8h';
+    }
+
+    // Action Functions
+    function generateCryptoInvoice() {
+        alert('Crypto invoice generated! Ready for download.');
+        updatePreview();
+    }
+
+    function generateRegularInvoice() {
+        alert('Regular invoice generated! Ready for download.');
+        updatePreview();
+    }
+
+    function setupRecurringInvoice() {
+        alert('Recurring invoice setup completed!');
+        updatePreview();
+    }
+
+    function downloadInvoice() {
+        alert('In a real application, this would download a PDF invoice.');
+    }
+
+    function printInvoice() {
+        window.print();
+    }
+
+    function shareInvoice() {
+        alert('Invoice sharing feature would be implemented here.');
+    }
+
+    function saveTemplate() {
+        alert('Template saved successfully!');
+    }
+
+    function togglePreview() {
+        const preview = document.getElementById('invoicePreview');
+        preview.classList.toggle('mobile-view');
+    }
+</script>
 </body>
 </html>
