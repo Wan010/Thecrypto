@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Tracker - CryptoHub</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        .portfolio-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .portfolio-summary {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .total-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .portfolio-change {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .change-positive { color: #4CAF50; }
+        .change-negative { color: #f44336; }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .holdings-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .holdings-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .holdings-table th,
+        .holdings-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .holdings-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .portfolio-chart {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .chart-placeholder {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .add-asset-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🚀 CryptoHub</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Portfolio Tracker</h1>
+            <p>Monitor your cryptocurrency investments in real-time</p>
+        </div>
+    </section>
+
+    <section class="portfolio-section">
+        <div class="container">
+            <!-- Portfolio Summary -->
+            <div class="portfolio-summary">
+                <div class="total-value">$12,458.32</div>
+                <div class="portfolio-change change-positive">+$342.18 (+2.8%) Today</div>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                    24h Performance • Updated just now
+                </div>
+            </div>
+
+            <!-- Portfolio Content -->
+            <div class="portfolio-grid">
+                <!-- Holdings Table -->
+                <div class="holdings-table">
+                    <div style="padding: 1.5rem; border-bottom: 1px solid #eee;">
+                        <h3>Your Holdings</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Asset</th>
+                                <th>Holdings</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                                <th>24h Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Bitcoin (BTC)</strong><br>
+                                    <small style="color: #666;">0.25 BTC</small>
+                                </td>
+                                <td>0.25 BTC</td>
+                                <td>$45,678.90</td>
+                                <td>$11,419.73</td>
+                                <td class="change-positive">+2.5%</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Ethereum (ETH)</strong><br>
+                                    <small style="color: #666;">2.5 ETH</small>
+                                </td>
+                                <td>2.5 ETH</td>
+                                <td>$3,456.78</td>
+                                <td>$8,641.95</td>
+                                <td class="change-positive">+1.8%</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Cardano (ADA)</strong><br>
+                                    <small style="color: #666;">5000 ADA</small>
+                                </td>
+                                <td>5000 ADA</td>
+                                <td>$1.23</td>
+                                <td>$6,150.00</td>
+                                <td class="change-negative">-0.5%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Portfolio Chart -->
+                <div class="portfolio-chart">
+                    <h3>Portfolio Allocation</h3>
+                    <div class="chart-placeholder">
+                        📊 Portfolio Chart<br>
+                        <small>(Interactive chart would appear here)</small>
+                    </div>
+                    <div style="margin-top: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Bitcoin (BTC)</span>
+                            <span>45%</span>
+                        </div>
+                        <div style="background: #e0e0e0; border-radius: 10px; height: 8px;">
+                            <div style="background: #f7931a; width: 45%; height: 100%; border-radius: 10px;"></div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin: 1rem 0 0.5rem;">
+                            <span>Ethereum (ETH)</span>
+                            <span>35%</span>
+                        </div>
+                        <div style="background: #e0e0e0; border-radius: 10px; height: 8px;">
+                            <div style="background: #627eea; width: 35%; height: 100%; border-radius: 10px;"></div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin: 1rem 0 0.5rem;">
+                            <span>Cardano (ADA)</span>
+                            <span>20%</span>
+                        </div>
+                        <div style="background: #e0e0e0; border-radius: 10px; height: 8px;">
+                            <div style="background: #0033ad; width: 20%; height: 100%; border-radius: 10px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Asset Form -->
+            <div class="add-asset-form">
+                <h3>Add New Asset</h3>
+                <form id="addAssetForm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label for="assetSelect">Cryptocurrency</label>
+                            <select id="assetSelect" required>
+                                <option value="">Select asset...</option>
+                                <option value="BTC">Bitcoin (BTC)</option>
+                                <option value="ETH">Ethereum (ETH)</option>
+                                <option value="ADA">Cardano (ADA)</option>
+                                <option value="SOL">Solana (SOL)</option>
+                                <option value="DOT">Polkadot (DOT)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="assetAmount">Amount</label>
+                            <input type="number" id="assetAmount" step="0.000001" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="purchasePrice">Purchase Price ($)</label>
+                            <input type="number" id="purchasePrice" step="0.01" placeholder="0.00" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Add to Portfolio</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 CryptoHub. Making crypto easy for everyone.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Portfolio functionality
+        document.getElementById('addAssetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const asset = document.getElementById('assetSelect').value;
+            const amount = document.getElementById('assetAmount').value;
+            const price = document.getElementById('purchasePrice').value;
+            
+            if (asset && amount && price) {
+                alert(`Added ${amount} ${asset} to your portfolio at $${price} per coin.`);
+                this.reset();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+        
+        // Mobile menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
