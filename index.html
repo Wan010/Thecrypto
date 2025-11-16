@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoHub - Bitcoin & Crypto Trading</title>
+    <title>CryptoHub - Advanced Crypto Trading Platform</title>
     <link rel="stylesheet" href="styles/style.css">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'GA_MEASUREMENT_ID');
-</script>
 </head>
 <body>
     <!-- Navigation -->
@@ -22,12 +14,12 @@
                 <h2>🚀 CryptoHub</h2>
             </div>
             <ul class="nav-menu">
-    <li><a href="index.html" class="nav-link">Home</a></li>
-    <li><a href="about.html" class="nav-link">About</a></li>
-    <li><a href="services.html" class="nav-link">Services</a></li>
-    <li><a href="blog.html" class="nav-link">Blog</a></li>
-    <li><a href="contact.html" class="nav-link">Contact</a></li>
-</ul>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -69,49 +61,74 @@
         </div>
     </section>
 
-    <!-- Crypto Prices Section -->
-<section class="crypto-prices">
-    <div class="container">
-        <h2>Live Crypto Prices</h2>
-        <div class="prices-grid">
-            <div class="price-card">
-                <h4>Bitcoin (BTC)</h4>
-                <div data-crypto="bitcoin">
-                    <div class="price">Loading...</div>
-                    <div class="change">--%</div>
+    <!-- Crypto Prices -->
+    <section class="crypto-prices">
+        <div class="container">
+            <h2>Popular Cryptocurrencies</h2>
+            <div class="prices-grid">
+                <div class="price-card">
+                    <h4>Bitcoin (BTC)</h4>
+                    <div class="price">$45,678.90</div>
+                    <div class="change positive">+2.5%</div>
                 </div>
-            </div>
-            <div class="price-card">
-                <h4>Ethereum (ETH)</h4>
-                <div data-crypto="ethereum">
-                    <div class="price">Loading...</div>
-                    <div class="change">--%</div>
+                <div class="price-card">
+                    <h4>Ethereum (ETH)</h4>
+                    <div class="price">$3,456.78</div>
+                    <div class="change positive">+1.8%</div>
                 </div>
-            </div>
-            <div class="price-card">
-                <h4>Cardano (ADA)</h4>
-                <div data-crypto="cardano">
-                    <div class="price">Loading...</div>
-                    <div class="change">--%</div>
-                </div>
-            </div>
-            <div class="price-card">
-                <h4>Solana (SOL)</h4>
-                <div data-crypto="solana">
-                    <div class="price">Loading...</div>
-                    <div class="change">--%</div>
-                </div>
-            </div>
-            <div class="price-card">
-                <h4>Binance Coin (BNB)</h4>
-                <div data-crypto="binancecoin">
-                    <div class="price">Loading...</div>
-                    <div class="change">--%</div>
+                <div class="price-card">
+                    <h4>Cardano (ADA)</h4>
+                    <div class="price">$1.23</div>
+                    <div class="change negative">-0.5%</div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- Quick Invoice Generator -->
+    <section class="invoice-preview">
+        <div class="container">
+            <h2>Quick Invoice Generator</h2>
+            <div class="invoice-simple">
+                <div class="invoice-form-simple">
+                    <h3>Create Invoice</h3>
+                    <form id="simpleInvoiceForm">
+                        <div class="form-group">
+                            <label for="clientName">Client Name</label>
+                            <input type="text" id="clientName" placeholder="Enter client name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceDesc">Service Description</label>
+                            <input type="text" id="serviceDesc" placeholder="Crypto trading consultation" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="invoiceAmount">Amount (USD)</label>
+                            <input type="number" id="invoiceAmount" placeholder="500.00" step="0.01" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Generate Invoice</button>
+                    </form>
+                </div>
+                <div class="invoice-output-simple">
+                    <div class="invoice-paper-simple">
+                        <div class="invoice-header-simple">
+                            <h3>CryptoHub</h3>
+                            <h4>INVOICE</h4>
+                        </div>
+                        <div class="invoice-details-simple">
+                            <p><strong>Client:</strong> <span id="previewClient">Client Name</span></p>
+                            <p><strong>Service:</strong> <span id="previewService">Service Description</span></p>
+                            <p><strong>Amount:</strong> $<span id="previewAmount">0.00</span></p>
+                            <p><strong>Date:</strong> <span id="previewDate">Loading...</span></p>
+                        </div>
+                    </div>
+                    <div class="invoice-actions-simple">
+                        <button class="btn-primary" onclick="downloadSimpleInvoice()">Download PDF</button>
+                        <button class="btn-secondary" onclick="printSimpleInvoice()">Print</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Newsletter -->
     <section class="newsletter">
@@ -134,5 +151,30 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Simple invoice functionality
+        document.getElementById('simpleInvoiceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const clientName = document.getElementById('clientName').value;
+            const serviceDesc = document.getElementById('serviceDesc').value;
+            const amount = document.getElementById('invoiceAmount').value;
+            
+            document.getElementById('previewClient').textContent = clientName;
+            document.getElementById('previewService').textContent = serviceDesc;
+            document.getElementById('previewAmount').textContent = amount;
+            document.getElementById('previewDate').textContent = new Date().toLocaleDateString();
+            
+            alert('Invoice preview updated! Click Download PDF to save.');
+        });
+
+        function downloadSimpleInvoice() {
+            alert('In a real application, this would download a PDF invoice. For now, you can print the page.');
+        }
+
+        function printSimpleInvoice() {
+            window.print();
+        }
+    </script>
 </body>
 </html>
