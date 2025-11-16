@@ -3,8 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoHub - Advanced Crypto Trading Platform</title>
+    <title>CryptoHub - Your Crypto Journey Starts Here</title>
     <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* Additional home page styles */
+        .invoice-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .invoice-simple {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .invoice-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .invoice-preview {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid #00d4ff;
+        }
+        
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .invoice-details p {
+            margin: 0.5rem 0;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .invoice-simple {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -85,14 +133,14 @@
         </div>
     </section>
 
-    <!-- Quick Invoice Generator -->
-    <section class="invoice-preview">
+    <!-- Invoice Generator -->
+    <section class="invoice-section">
         <div class="container">
             <h2>Quick Invoice Generator</h2>
             <div class="invoice-simple">
-                <div class="invoice-form-simple">
+                <div class="invoice-form">
                     <h3>Create Invoice</h3>
-                    <form id="simpleInvoiceForm">
+                    <form id="invoiceForm">
                         <div class="form-group">
                             <label for="clientName">Client Name</label>
                             <input type="text" id="clientName" placeholder="Enter client name" required>
@@ -108,22 +156,21 @@
                         <button type="submit" class="btn-primary">Generate Invoice</button>
                     </form>
                 </div>
-                <div class="invoice-output-simple">
-                    <div class="invoice-paper-simple">
-                        <div class="invoice-header-simple">
-                            <h3>CryptoHub</h3>
-                            <h4>INVOICE</h4>
-                        </div>
-                        <div class="invoice-details-simple">
-                            <p><strong>Client:</strong> <span id="previewClient">Client Name</span></p>
-                            <p><strong>Service:</strong> <span id="previewService">Service Description</span></p>
-                            <p><strong>Amount:</strong> $<span id="previewAmount">0.00</span></p>
-                            <p><strong>Date:</strong> <span id="previewDate">Loading...</span></p>
-                        </div>
+                <div class="invoice-preview">
+                    <div class="invoice-header">
+                        <h3>CryptoHub</h3>
+                        <h4>INVOICE</h4>
                     </div>
-                    <div class="invoice-actions-simple">
-                        <button class="btn-primary" onclick="downloadSimpleInvoice()">Download PDF</button>
-                        <button class="btn-secondary" onclick="printSimpleInvoice()">Print</button>
+                    <div class="invoice-details">
+                        <p><strong>Client:</strong> <span id="previewClient">Client Name</span></p>
+                        <p><strong>Service:</strong> <span id="previewService">Service Description</span></p>
+                        <p><strong>Amount:</strong> $<span id="previewAmount">0.00</span></p>
+                        <p><strong>Date:</strong> <span id="previewDate">Loading...</span></p>
+                        <p><strong>Invoice ID:</strong> <span id="previewId">INV-001</span></p>
+                    </div>
+                    <div style="margin-top: 2rem; text-align: center;">
+                        <button class="btn-primary" onclick="downloadInvoice()" style="margin-right: 1rem;">Download PDF</button>
+                        <button class="btn-secondary" onclick="printInvoice()">Print Invoice</button>
                     </div>
                 </div>
             </div>
@@ -150,31 +197,76 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
     <script>
-        // Simple invoice functionality
-        document.getElementById('simpleInvoiceForm').addEventListener('submit', function(e) {
+        // Set current date
+        document.getElementById('previewDate').textContent = new Date().toLocaleDateString();
+        
+        // Invoice form functionality
+        document.getElementById('invoiceForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const clientName = document.getElementById('clientName').value;
             const serviceDesc = document.getElementById('serviceDesc').value;
             const amount = document.getElementById('invoiceAmount').value;
             
+            // Update preview
             document.getElementById('previewClient').textContent = clientName;
             document.getElementById('previewService').textContent = serviceDesc;
             document.getElementById('previewAmount').textContent = amount;
-            document.getElementById('previewDate').textContent = new Date().toLocaleDateString();
             
-            alert('Invoice preview updated! Click Download PDF to save.');
+            // Generate invoice ID
+            const invoiceId = 'INV-' + Date.now().toString().slice(-6);
+            document.getElementById('previewId').textContent = invoiceId;
+            
+            alert('Invoice preview updated! You can now download or print it.');
         });
-
-        function downloadSimpleInvoice() {
-            alert('In a real application, this would download a PDF invoice. For now, you can print the page.');
+        
+        // Download invoice function
+        function downloadInvoice() {
+            const clientName = document.getElementById('previewClient').textContent;
+            alert('In a real application, this would download a PDF invoice for: ' + clientName + '\n\nFor now, you can print the page.');
         }
-
-        function printSimpleInvoice() {
+        
+        // Print invoice function
+        function printInvoice() {
             window.print();
         }
+        
+        // Button functionality
+        document.getElementById('getStartedBtn').addEventListener('click', function() {
+            window.location.href = 'services.html';
+        });
+        
+        document.getElementById('learnMoreBtn').addEventListener('click', function() {
+            window.location.href = 'about.html';
+        });
+        
+        // Newsletter form
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert('Thank you for subscribing with: ' + email);
+            this.reset();
+        });
+        
+        // Mobile menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        // Close mobile menu when clicking links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
     </script>
 </body>
 </html>
