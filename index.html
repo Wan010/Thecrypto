@@ -146,49 +146,162 @@
         </div>
     </section>
 
-    <!-- Invoice Generator -->
-    <section class="invoice-section">
-        <div class="container">
-            <h2>Quick Invoice Generator</h2>
-            <div class="invoice-simple">
-                <div class="invoice-form">
+    <!-- Advanced Invoice Generator -->
+<section class="advanced-invoice">
+    <div class="container">
+        <h2>Professional Invoice Generator</h2>
+        <div class="invoice-advanced">
+            <div class="invoice-controls">
+                <div class="control-group">
+                    <label>Template:</label>
+                    <select id="templateSelect">
+                        <option value="professional">Professional</option>
+                        <option value="modern">Modern</option>
+                        <option value="minimal">Minimal</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Currency:</label>
+                    <select id="currencySelect">
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="BTC">Bitcoin (₿)</option>
+                        <option value="ETH">Ethereum (Ξ)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="invoice-workspace">
+                <div class="invoice-form-advanced">
                     <h3>Create Invoice</h3>
-                    <form id="invoiceForm">
-                        <div class="form-group">
-                            <label for="clientName">Client Name</label>
-                            <input type="text" id="clientName" placeholder="Enter client name" required>
+                    <form id="advancedInvoiceForm">
+                        <div class="form-section">
+                            <h4>Client Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Client Name</label>
+                                    <input type="text" id="advClientName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Client Email</label>
+                                    <input type="email" id="advClientEmail">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="serviceDesc">Service Description</label>
-                            <input type="text" id="serviceDesc" placeholder="Crypto trading consultation" required>
+
+                        <div class="form-section">
+                            <h4>Invoice Details</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Invoice Number</label>
+                                    <input type="text" id="advInvoiceNumber" value="INV-2024-001" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Due Date</label>
+                                    <input type="date" id="advDueDate" required>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="invoiceAmount">Amount (USD)</label>
-                            <input type="number" id="invoiceAmount" placeholder="500.00" step="0.01" required>
+
+                        <div class="form-section">
+                            <h4>Items & Services</h4>
+                            <div class="invoice-items-list" id="invoiceItems">
+                                <div class="invoice-item">
+                                    <input type="text" placeholder="Description" class="item-desc">
+                                    <input type="number" placeholder="Quantity" class="item-qty" value="1">
+                                    <input type="number" placeholder="Price" class="item-price" step="0.01">
+                                    <span class="item-total">$0.00</span>
+                                    <button type="button" class="btn-remove">×</button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-secondary" id="addItem">+ Add Item</button>
                         </div>
+
                         <button type="submit" class="btn-primary">Generate Invoice</button>
                     </form>
                 </div>
-                <div class="invoice-preview">
-                    <div class="invoice-header">
-                        <h3>CryptoHub</h3>
-                        <h4>INVOICE</h4>
+
+                <div class="invoice-preview-advanced">
+                    <div class="invoice-paper-advanced" id="advancedInvoicePaper">
+                        <div class="invoice-header-advanced">
+                            <div class="company-info">
+                                <h2>CryptoHub Pro</h2>
+                                <p>123 Crypto Street, Digital City</p>
+                                <p>invoices@cryptohub.com</p>
+                            </div>
+                            <div class="invoice-title">
+                                <h1>INVOICE</h1>
+                                <p id="previewInvoiceNumber">INV-2024-001</p>
+                            </div>
+                        </div>
+
+                        <div class="invoice-details-advanced">
+                            <div class="bill-to">
+                                <strong>Bill To:</strong>
+                                <p id="previewClientName">Client Name</p>
+                                <p id="previewClientEmail">client@email.com</p>
+                            </div>
+                            <div class="invoice-info">
+                                <p><strong>Invoice Date:</strong> <span id="previewInvoiceDate"></span></p>
+                                <p><strong>Due Date:</strong> <span id="previewDueDate"></span></p>
+                            </div>
+                        </div>
+
+                        <div class="invoice-table-advanced">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="previewItems">
+                                    <tr>
+                                        <td colspan="4" style="text-align: center; color: #999;">No items added</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="invoice-total-advanced">
+                            <div class="total-row">
+                                <span>Subtotal:</span>
+                                <span id="previewSubtotal">$0.00</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Tax (0%):</span>
+                                <span>$0.00</span>
+                            </div>
+                            <div class="total-row grand-total">
+                                <span>Total Due:</span>
+                                <span id="previewTotal">$0.00</span>
+                            </div>
+                        </div>
+
+                        <div class="invoice-footer-advanced">
+                            <p>Thank you for your business!</p>
+                            <div class="payment-info">
+                                <strong>Payment Methods Accepted:</strong>
+                                <div class="payment-methods">
+                                    <span>BTC • ETH • USD • EUR • Bank Transfer</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="invoice-details">
-                        <p><strong>Client:</strong> <span id="previewClient">Client Name</span></p>
-                        <p><strong>Service:</strong> <span id="previewService">Service Description</span></p>
-                        <p><strong>Amount:</strong> $<span id="previewAmount">0.00</span></p>
-                        <p><strong>Date:</strong> <span id="previewDate">Loading...</span></p>
-                        <p><strong>Invoice ID:</strong> <span id="previewId">INV-001</span></p>
-                    </div>
-                    <div style="margin-top: 2rem; text-align: center;">
-                        <button class="btn-primary" onclick="downloadInvoice()" style="margin-right: 1rem;">Download PDF</button>
-                        <button class="btn-secondary" onclick="printInvoice()">Print Invoice</button>
+
+                    <div class="invoice-actions-advanced">
+                        <button class="btn-primary" onclick="downloadAdvancedInvoice()">Download PDF</button>
+                        <button class="btn-secondary" onclick="printAdvancedInvoice()">Print</button>
+                        <button class="btn-outline" onclick="shareInvoice()">Share</button>
+                        <button class="btn-outline" onclick="saveTemplate()">Save Template</button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Newsletter -->
     <section class="newsletter">
