@@ -3,30 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Calculator - CryptoHub</title>
+    <title>CryptoHub - Advanced Crypto Trading Platform</title>
     <link rel="stylesheet" href="styles/style.css">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'GA_MEASUREMENT_ID');
-</script>
+    <link rel="stylesheet" href="styles/advanced.css">
+    <!-- Chart.js for advanced charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- InvoiceJS for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>🚀 CryptoHub</h2>
+                <h2>🚀 CryptoHub Pro</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="calculator.html" class="nav-link">Calculator</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="invoice.html" class="nav-link">Invoices</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
+            <div class="nav-actions">
+                <button class="btn-wallet" id="connectWallet">Connect Wallet</button>
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -35,78 +38,218 @@
         </div>
     </nav>
 
-    <section class="page-header">
-        <div class="container">
-            <h1>Crypto Calculator</h1>
-            <p>Calculate your potential profits and investment returns</p>
+    <!-- Hero Section with Animated Background -->
+    <section class="hero-advanced">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Next-Gen Crypto Trading</h1>
+                <p class="hero-subtitle">AI-powered insights, real-time analytics, and professional tools for serious traders</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">$2.1B+</span>
+                        <span class="stat-label">Volume</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">150K+</span>
+                        <span class="stat-label">Traders</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <button class="btn-primary btn-glow" id="startTrading">Start Trading</button>
+                    <button class="btn-secondary" id="watchDemo">Watch Demo</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="crypto-chart-preview">
+                    <canvas id="heroChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="floating-elements">
+            <div class="floating-bitcoin">₿</div>
+            <div class="floating-eth">Ξ</div>
+            <div class="floating-ada">₳</div>
         </div>
     </section>
 
-    <section class="calculator-section">
+    <!-- Live Crypto Dashboard -->
+    <section class="dashboard-section">
         <div class="container">
-            <div class="calculator-grid">
-                <div class="calculator-card">
-                    <h2>Profit Calculator</h2>
-                    <form id="profitCalculator">
-                        <div class="form-group">
-                            <label for="investment">Investment Amount ($)</label>
-                            <input type="number" id="investment" value="1000" min="1" required>
+            <h2 class="section-title">Live Market Dashboard</h2>
+            <div class="dashboard-grid">
+                <!-- Market Overview -->
+                <div class="dashboard-card market-overview">
+                    <h3>Market Overview</h3>
+                    <div class="market-stats">
+                        <div class="market-stat">
+                            <span class="label">Total Market Cap</span>
+                            <span class="value">$1.72T</span>
+                            <span class="change positive">+2.3%</span>
                         </div>
-                        <div class="form-group">
-                            <label for="buyPrice">Buy Price ($)</label>
-                            <input type="number" id="buyPrice" step="0.0001" required>
+                        <div class="market-stat">
+                            <span class="label">24h Volume</span>
+                            <span class="value">$84.5B</span>
+                            <span class="change positive">+5.7%</span>
                         </div>
-                        <div class="form-group">
-                            <label for="sellPrice">Sell Price ($)</label>
-                            <input type="number" id="sellPrice" step="0.0001" required>
-                        </div>
-                        <button type="button" class="btn-primary" onclick="calculateProfit()">Calculate Profit</button>
-                    </form>
-                    
-                    <div class="results" id="profitResults">
-                        <h3>Results</h3>
-                        <div class="result-item">
-                            <span>Coins Purchased:</span>
-                            <span id="coinsResult">0</span>
-                        </div>
-                        <div class="result-item">
-                            <span>Total Value:</span>
-                            <span id="totalValue">$0.00</span>
-                        </div>
-                        <div class="result-item">
-                            <span>Profit/Loss:</span>
-                            <span id="profitResult">$0.00</span>
-                        </div>
-                        <div class="result-item">
-                            <span>Return %:</span>
-                            <span id="returnPercent">0%</span>
+                        <div class="market-stat">
+                            <span class="label">BTC Dominance</span>
+                            <span class="value">48.3%</span>
+                            <span class="change negative">-0.8%</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="calculator-card">
-                    <h2>Market Cap Calculator</h2>
-                    <form id="marketCapCalculator">
-                        <div class="form-group">
-                            <label for="circulatingSupply">Circulating Supply</label>
-                            <input type="number" id="circulatingSupply" value="21000000" required>
+                <!-- Portfolio Tracker -->
+                <div class="dashboard-card portfolio-tracker">
+                    <h3>Portfolio Tracker</h3>
+                    <div class="portfolio-summary">
+                        <div class="portfolio-value">
+                            <span class="amount">$12,458.32</span>
+                            <span class="change positive">+$342.18 (2.8%)</span>
                         </div>
-                        <div class="form-group">
-                            <label for="tokenPrice">Token Price ($)</label>
-                            <input type="number" id="tokenPrice" step="0.0001" required>
+                        <div class="portfolio-chart">
+                            <canvas id="portfolioChart"></canvas>
                         </div>
-                        <button type="button" class="btn-primary" onclick="calculateMarketCap()">Calculate Market Cap</button>
-                    </form>
-                    
-                    <div class="results" id="marketCapResults">
-                        <h3>Results</h3>
-                        <div class="result-item">
-                            <span>Market Cap:</span>
-                            <span id="marketCapResult">$0.00</span>
+                    </div>
+                    <button class="btn-outline" id="viewPortfolio">View Full Portfolio</button>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="dashboard-card quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn buy" data-action="buy">
+                            <span class="icon">💰</span>
+                            <span>Buy Crypto</span>
+                        </button>
+                        <button class="action-btn sell" data-action="sell">
+                            <span class="icon">💸</span>
+                            <span>Sell Assets</span>
+                        </button>
+                        <button class="action-btn swap" data-action="swap">
+                            <span class="icon">🔄</span>
+                            <span>Swap Tokens</span>
+                        </button>
+                        <button class="action-btn stake" data-action="stake">
+                            <span class="icon">🏦</span>
+                            <span>Stake & Earn</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Crypto Prices with Charts -->
+    <section class="advanced-prices">
+        <div class="container">
+            <h2 class="section-title">Real-time Crypto Prices</h2>
+            <div class="prices-controls">
+                <div class="view-toggle">
+                    <button class="toggle-btn active" data-view="grid">Grid View</button>
+                    <button class="toggle-btn" data-view="table">Table View</button>
+                </div>
+                <div class="refresh-controls">
+                    <button class="btn-refresh" id="refreshPrices">
+                        <span class="icon">🔄</span>
+                        Refresh
+                    </button>
+                    <span class="last-updated">Updated: <span id="lastUpdate">Just now</span></span>
+                </div>
+            </div>
+            
+            <div class="prices-grid" id="pricesView">
+                <!-- Dynamic content will be loaded by JavaScript -->
+            </div>
+
+            <div class="prices-table" id="tableView" style="display: none;">
+                <table class="crypto-table">
+                    <thead>
+                        <tr>
+                            <th>Asset</th>
+                            <th>Price</th>
+                            <th>24h Change</th>
+                            <th>Market Cap</th>
+                            <th>Volume (24h)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Table rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Trading Signals -->
+    <section class="ai-signals">
+        <div class="container">
+            <h2 class="section-title">AI Trading Signals</h2>
+            <div class="signals-grid">
+                <div class="signal-card buy-signal">
+                    <div class="signal-header">
+                        <span class="signal-type buy">BUY</span>
+                        <span class="signal-confidence">92% Confidence</span>
+                    </div>
+                    <div class="signal-content">
+                        <h4>Bitcoin (BTC)</h4>
+                        <p>Strong bullish momentum detected with RSI oversold reversal pattern</p>
+                        <div class="signal-metrics">
+                            <div class="metric">
+                                <span>Target Price</span>
+                                <span class="value">$48,500</span>
+                            </div>
+                            <div class="metric">
+                                <span>Stop Loss</span>
+                                <span class="value">$43,200</span>
+                            </div>
                         </div>
-                        <div class="result-item">
-                            <span>Fully Diluted:</span>
-                            <span id="fullyDiluted">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="signal-card sell-signal">
+                    <div class="signal-header">
+                        <span class="signal-type sell">SELL</span>
+                        <span class="signal-confidence">85% Confidence</span>
+                    </div>
+                    <div class="signal-content">
+                        <h4>Ethereum (ETH)</h4>
+                        <p>Resistance level rejection with decreasing volume profile</p>
+                        <div class="signal-metrics">
+                            <div class="metric">
+                                <span>Target Price</span>
+                                <span class="value">$3,200</span>
+                            </div>
+                            <div class="metric">
+                                <span>Stop Loss</span>
+                                <span class="value">$3,650</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="signal-card hold-signal">
+                    <div class="signal-header">
+                        <span class="signal-type hold">HOLD</span>
+                        <span class="signal-confidence">78% Confidence</span>
+                    </div>
+                    <div class="signal-content">
+                        <h4>Cardano (ADA)</h4>
+                        <p>Consolidation phase with strong support at current levels</p>
+                        <div class="signal-metrics">
+                            <div class="metric">
+                                <span>Next Resistance</span>
+                                <span class="value">$1.45</span>
+                            </div>
+                            <div class="metric">
+                                <span>Support Level</span>
+                                <span class="value">$1.15</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,13 +257,235 @@
         </div>
     </section>
 
-    <footer class="footer">
+    <!-- Quick Invoice Generator -->
+    <section class="invoice-generator">
         <div class="container">
-            <p>&copy; 2024 CryptoHub. Making crypto easy for everyone.</p>
+            <h2 class="section-title">Quick Invoice Generator</h2>
+            <div class="invoice-preview">
+                <div class="invoice-form">
+                    <h3>Create Invoice</h3>
+                    <form id="invoiceForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="clientName">Client Name</label>
+                                <input type="text" id="clientName" placeholder="Enter client name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="invoiceNumber">Invoice #</label>
+                                <input type="text" id="invoiceNumber" value="INV-2024-001" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceDescription">Service Description</label>
+                            <input type="text" id="serviceDescription" placeholder="Crypto trading consultation" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="amount">Amount (USD)</label>
+                                <input type="number" id="amount" step="0.01" placeholder="500.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cryptoAmount">Crypto Amount</label>
+                                <input type="number" id="cryptoAmount" step="0.000001" placeholder="0.015" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cryptoType">Crypto Type</label>
+                                <select id="cryptoType">
+                                    <option value="BTC">Bitcoin (BTC)</option>
+                                    <option value="ETH">Ethereum (ETH)</option>
+                                    <option value="USDT">Tether (USDT)</option>
+                                    <option value="USDC">USD Coin (USDC)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Generate Invoice</button>
+                    </form>
+                </div>
+                <div class="invoice-output">
+                    <div class="invoice-paper" id="invoicePaper">
+                        <div class="invoice-header">
+                            <div class="company-info">
+                                <h3>CryptoHub Pro</h3>
+                                <p>123 Crypto Street, Digital City</p>
+                                <p>contact@cryptohub.com</p>
+                            </div>
+                            <div class="invoice-title">
+                                <h2>INVOICE</h2>
+                                <p id="invoicePreviewNumber">INV-2024-001</p>
+                            </div>
+                        </div>
+                        <div class="invoice-details">
+                            <div class="bill-to">
+                                <strong>Bill To:</strong>
+                                <p id="previewClientName">Client Name</p>
+                            </div>
+                            <div class="invoice-info">
+                                <p><strong>Date:</strong> <span id="previewDate">Loading...</span></p>
+                                <p><strong>Due Date:</strong> <span id="previewDueDate">Loading...</span></p>
+                            </div>
+                        </div>
+                        <div class="invoice-items">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="previewDescription">Service Description</td>
+                                        <td id="previewCryptoAmount">0.015 BTC</td>
+                                        <td id="previewAmount">$500.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="invoice-total">
+                            <div class="total-row">
+                                <span>Subtotal:</span>
+                                <span id="previewSubtotal">$500.00</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Tax (0%):</span>
+                                <span>$0.00</span>
+                            </div>
+                            <div class="total-row grand-total">
+                                <span>Total:</span>
+                                <span id="previewTotal">$500.00</span>
+                            </div>
+                        </div>
+                        <div class="invoice-footer">
+                            <p>Thank you for your business!</p>
+                            <div class="crypto-address">
+                                <strong>Payment Address:</strong>
+                                <code id="previewAddress">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</code>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invoice-actions">
+                        <button class="btn-primary" id="downloadInvoice">Download PDF</button>
+                        <button class="btn-secondary" id="printInvoice">Print Invoice</button>
+                        <button class="btn-outline" id="shareInvoice">Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Features Showcase -->
+    <section class="features-showcase">
+        <div class="container">
+            <h2 class="section-title">Enterprise-Grade Features</h2>
+            <div class="features-grid-advanced">
+                <div class="feature-advanced">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Trading</h3>
+                    <p>Advanced machine learning algorithms analyze market patterns and execute trades automatically</p>
+                    <ul>
+                        <li>Pattern recognition</li>
+                        <li>Risk management</li>
+                        <li>Auto-rebalancing</li>
+                    </ul>
+                </div>
+                <div class="feature-advanced">
+                    <div class="feature-icon">📊</div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Professional-grade charting tools and technical indicators for serious traders</p>
+                    <ul>
+                        <li>100+ indicators</li>
+                        <li>Custom scripts</li>
+                        <li>Backtesting</li>
+                    </ul>
+                </div>
+                <div class="feature-advanced">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Institutional Security</h3>
+                    <p>Bank-level security with multi-signature wallets and cold storage insurance</p>
+                    <ul>
+                        <li>Multi-sig wallets</li>
+                        <li>Cold storage</li>
+                        <li>$250M insurance</li>
+                    </ul>
+                </div>
+                <div class="feature-advanced">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Global Access</h3>
+                    <p>Trade 24/7 with access to global markets and instant settlement</p>
+                    <ul>
+                        <li>24/7 trading</li>
+                        <li>150+ countries</li>
+                        <li>Instant settlement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-advanced">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Trade Like a Pro?</h2>
+                <p>Join thousands of professional traders using our advanced platform</p>
+                <div class="cta-buttons">
+                    <button class="btn-primary btn-large" id="createAccount">Create Account</button>
+                    <button class="btn-secondary btn-large" id="scheduleDemo">Schedule Demo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-advanced">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CryptoHub Pro</h3>
+                    <p>Advanced cryptocurrency trading platform with professional tools and insights.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">💼</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">📹</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#">Trading</a></li>
+                        <li><a href="#">Analytics</a></li>
+                        <li><a href="#">Portfolio</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Learning</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CryptoHub Pro. All rights reserved. | Making crypto trading professional</p>
+            </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
-    <script src="calculator.js"></script>
+    <script src="advanced.js"></script>
+    <script src="invoice.js"></script>
 </body>
 </html>
