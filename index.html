@@ -147,155 +147,307 @@
     </section>
 
     <!-- Advanced Invoice Generator -->
-<section class="advanced-invoice">
+<section class="advanced-invoice-generator">
     <div class="container">
         <h2>Professional Invoice Generator</h2>
-        <div class="invoice-advanced">
-            <div class="invoice-controls">
-                <div class="control-group">
-                    <label>Template:</label>
-                    <select id="templateSelect">
-                        <option value="professional">Professional</option>
-                        <option value="modern">Modern</option>
-                        <option value="minimal">Minimal</option>
-                    </select>
+        <p class="section-subtitle">Create beautiful invoices for crypto payments or traditional business</p>
+        
+        <!-- Invoice Type Tabs -->
+        <div class="invoice-type-tabs">
+            <button class="type-tab active" data-type="crypto">Crypto Invoice</button>
+            <button class="type-tab" data-type="regular">Regular Invoice</button>
+            <button class="type-tab" data-type="recurring">Recurring Invoice</button>
+        </div>
+
+        <div class="invoice-workspace">
+            <!-- Crypto Invoice Form -->
+            <div class="invoice-form crypto-invoice active">
+                <div class="form-header">
+                    <h3>🪙 Crypto Invoice</h3>
+                    <p>Accept payments in Bitcoin, Ethereum, and other cryptocurrencies</p>
                 </div>
-                <div class="control-group">
-                    <label>Currency:</label>
-                    <select id="currencySelect">
-                        <option value="USD">USD ($)</option>
-                        <option value="EUR">EUR (€)</option>
-                        <option value="BTC">Bitcoin (₿)</option>
-                        <option value="ETH">Ethereum (Ξ)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="invoice-workspace">
-                <div class="invoice-form-advanced">
-                    <h3>Create Invoice</h3>
-                    <form id="advancedInvoiceForm">
-                        <div class="form-section">
-                            <h4>Client Information</h4>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Client Name</label>
-                                    <input type="text" id="advClientName" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Client Email</label>
-                                    <input type="email" id="advClientEmail">
-                                </div>
+                
+                <form id="cryptoInvoiceForm">
+                    <!-- Client Information -->
+                    <div class="form-section">
+                        <h4>Client Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Client Name *</label>
+                                <input type="text" id="cryptoClientName" placeholder="Enter client name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Client Email</label>
+                                <input type="email" id="cryptoClientEmail" placeholder="client@email.com">
                             </div>
                         </div>
-
-                        <div class="form-section">
-                            <h4>Invoice Details</h4>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Invoice Number</label>
-                                    <input type="text" id="advInvoiceNumber" value="INV-2024-001" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Due Date</label>
-                                    <input type="date" id="advDueDate" required>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label>Client Wallet Address</label>
+                            <input type="text" id="cryptoWallet" placeholder="0x... or bc1...">
                         </div>
+                    </div>
 
-                        <div class="form-section">
-                            <h4>Items & Services</h4>
-                            <div class="invoice-items-list" id="invoiceItems">
-                                <div class="invoice-item">
-                                    <input type="text" placeholder="Description" class="item-desc">
-                                    <input type="number" placeholder="Quantity" class="item-qty" value="1">
-                                    <input type="number" placeholder="Price" class="item-price" step="0.01">
-                                    <span class="item-total">$0.00</span>
-                                    <button type="button" class="btn-remove">×</button>
-                                </div>
+                    <!-- Invoice Details -->
+                    <div class="form-section">
+                        <h4>Invoice Details</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Invoice Number *</label>
+                                <input type="text" id="cryptoInvoiceNumber" value="CRYPTO-INV-001" required>
                             </div>
-                            <button type="button" class="btn-secondary" id="addItem">+ Add Item</button>
-                        </div>
-
-                        <button type="submit" class="btn-primary">Generate Invoice</button>
-                    </form>
-                </div>
-
-                <div class="invoice-preview-advanced">
-                    <div class="invoice-paper-advanced" id="advancedInvoicePaper">
-                        <div class="invoice-header-advanced">
-                            <div class="company-info">
-                                <h2>CryptoHub Pro</h2>
-                                <p>123 Crypto Street, Digital City</p>
-                                <p>invoices@cryptohub.com</p>
-                            </div>
-                            <div class="invoice-title">
-                                <h1>INVOICE</h1>
-                                <p id="previewInvoiceNumber">INV-2024-001</p>
-                            </div>
-                        </div>
-
-                        <div class="invoice-details-advanced">
-                            <div class="bill-to">
-                                <strong>Bill To:</strong>
-                                <p id="previewClientName">Client Name</p>
-                                <p id="previewClientEmail">client@email.com</p>
-                            </div>
-                            <div class="invoice-info">
-                                <p><strong>Invoice Date:</strong> <span id="previewInvoiceDate"></span></p>
-                                <p><strong>Due Date:</strong> <span id="previewDueDate"></span></p>
-                            </div>
-                        </div>
-
-                        <div class="invoice-table-advanced">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Description</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="previewItems">
-                                    <tr>
-                                        <td colspan="4" style="text-align: center; color: #999;">No items added</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="invoice-total-advanced">
-                            <div class="total-row">
-                                <span>Subtotal:</span>
-                                <span id="previewSubtotal">$0.00</span>
-                            </div>
-                            <div class="total-row">
-                                <span>Tax (0%):</span>
-                                <span>$0.00</span>
-                            </div>
-                            <div class="total-row grand-total">
-                                <span>Total Due:</span>
-                                <span id="previewTotal">$0.00</span>
-                            </div>
-                        </div>
-
-                        <div class="invoice-footer-advanced">
-                            <p>Thank you for your business!</p>
-                            <div class="payment-info">
-                                <strong>Payment Methods Accepted:</strong>
-                                <div class="payment-methods">
-                                    <span>BTC • ETH • USD • EUR • Bank Transfer</span>
-                                </div>
+                            <div class="form-group">
+                                <label>Due Date *</label>
+                                <input type="date" id="cryptoDueDate" required>
                             </div>
                         </div>
                     </div>
 
-                    <div class="invoice-actions-advanced">
-                        <button class="btn-primary" onclick="downloadAdvancedInvoice()">Download PDF</button>
-                        <button class="btn-secondary" onclick="printAdvancedInvoice()">Print</button>
-                        <button class="btn-outline" onclick="shareInvoice()">Share</button>
-                        <button class="btn-outline" onclick="saveTemplate()">Save Template</button>
+                    <!-- Payment Details -->
+                    <div class="form-section">
+                        <h4>Payment Details</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Preferred Cryptocurrency *</label>
+                                <select id="cryptoType" required>
+                                    <option value="BTC">Bitcoin (BTC)</option>
+                                    <option value="ETH">Ethereum (ETH)</option>
+                                    <option value="USDT">Tether (USDT)</option>
+                                    <option value="USDC">USD Coin (USDC)</option>
+                                    <option value="SOL">Solana (SOL)</option>
+                                    <option value="ADA">Cardano (ADA)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount (USD) *</label>
+                                <input type="number" id="cryptoAmountUSD" placeholder="500.00" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Service Description *</label>
+                            <input type="text" id="cryptoService" placeholder="Crypto trading consultation, NFT creation, etc." required>
+                        </div>
+                    </div>
+
+                    <!-- Additional Options -->
+                    <div class="form-section">
+                        <h4>Additional Options</h4>
+                        <div class="form-options">
+                            <label class="checkbox">
+                                <input type="checkbox" id="cryptoAutoConvert"> Auto-convert to stablecoin
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="cryptoMultiChain"> Accept multiple chains
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="cryptoQR"> Generate payment QR code
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-large">Generate Crypto Invoice</button>
+                </form>
+            </div>
+
+            <!-- Regular Invoice Form -->
+            <div class="invoice-form regular-invoice">
+                <div class="form-header">
+                    <h3>📄 Regular Invoice</h3>
+                    <p>Traditional invoice for fiat payments and standard business services</p>
+                </div>
+                
+                <form id="regularInvoiceForm">
+                    <!-- Client Information -->
+                    <div class="form-section">
+                        <h4>Client Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Client/Business Name *</label>
+                                <input type="text" id="regularClientName" placeholder="Enter client or business name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Email *</label>
+                                <input type="email" id="regularClientEmail" placeholder="billing@company.com" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="regularClientPhone" placeholder="+1 (555) 123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label>Business Address</label>
+                                <input type="text" id="regularClientAddress" placeholder="123 Business St, City">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Invoice Details -->
+                    <div class="form-section">
+                        <h4>Invoice Details</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Invoice Number *</label>
+                                <input type="text" id="regularInvoiceNumber" value="REG-INV-001" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Invoice Date *</label>
+                                <input type="date" id="regularInvoiceDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Due Date *</label>
+                                <input type="date" id="regularDueDate" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Items & Services -->
+                    <div class="form-section">
+                        <h4>Items & Services</h4>
+                        <div class="items-container" id="regularItemsContainer">
+                            <div class="invoice-item">
+                                <div class="item-row">
+                                    <input type="text" class="item-desc" placeholder="Service description" required>
+                                    <input type="number" class="item-qty" placeholder="Qty" value="1" min="1" required>
+                                    <input type="number" class="item-price" placeholder="Price" step="0.01" required>
+                                    <span class="item-total">$0.00</span>
+                                    <button type="button" class="btn-remove-item">×</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-secondary" id="addRegularItem">+ Add Item</button>
+                        
+                        <div class="tax-row">
+                            <div class="form-group">
+                                <label>Tax Rate (%)</label>
+                                <input type="number" id="taxRate" value="0" step="0.01" min="0" max="50">
+                            </div>
+                            <div class="form-group">
+                                <label>Discount ($)</label>
+                                <input type="number" id="discountAmount" value="0" step="0.01" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="form-section">
+                        <h4>Payment Methods</h4>
+                        <div class="payment-options">
+                            <label class="radio">
+                                <input type="radio" name="paymentMethod" value="bank" checked> Bank Transfer
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="paymentMethod" value="paypal"> PayPal
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="paymentMethod" value="card"> Credit Card
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="paymentMethod" value="crypto"> Cryptocurrency
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-large">Generate Regular Invoice</button>
+                </form>
+            </div>
+
+            <!-- Recurring Invoice Form -->
+            <div class="invoice-form recurring-invoice">
+                <div class="form-header">
+                    <h3>🔄 Recurring Invoice</h3>
+                    <p>Set up automatic recurring invoices for subscription services</p>
+                </div>
+                
+                <form id="recurringInvoiceForm">
+                    <div class="form-section">
+                        <h4>Subscription Details</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Client Name *</label>
+                                <input type="text" id="recurringClientName" placeholder="Enter client name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Billing Cycle *</label>
+                                <select id="billingCycle" required>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly" selected>Monthly</option>
+                                    <option value="quarterly">Quarterly</option>
+                                    <option value="yearly">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Amount per Cycle ($) *</label>
+                                <input type="number" id="recurringAmount" placeholder="100.00" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date *</label>
+                                <input type="date" id="recurringStartDate" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-large">Setup Recurring Invoice</button>
+                </form>
+            </div>
+
+            <!-- Invoice Preview -->
+            <div class="invoice-preview-container">
+                <div class="preview-header">
+                    <h3>Invoice Preview</h3>
+                    <div class="preview-actions">
+                        <button class="btn-outline" id="refreshPreview">🔄 Refresh</button>
+                        <button class="btn-outline" id="togglePreview">📱 Toggle View</button>
+                    </div>
+                </div>
+                
+                <div class="invoice-preview" id="invoicePreview">
+                    <!-- Preview will be generated here -->
+                    <div class="preview-placeholder">
+                        <div class="placeholder-icon">📄</div>
+                        <h4>Your Invoice Preview</h4>
+                        <p>Fill out the form to see your invoice preview here</p>
+                    </div>
+                </div>
+
+                <div class="preview-actions-main">
+                    <button class="btn-primary" id="downloadInvoice">
+                        📥 Download PDF
+                    </button>
+                    <button class="btn-secondary" id="printInvoice">
+                        🖨️ Print Invoice
+                    </button>
+                    <button class="btn-outline" id="shareInvoice">
+                        📤 Share Link
+                    </button>
+                    <button class="btn-outline" id="saveTemplate">
+                        💾 Save Template
+                    </button>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="invoice-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="totalInvoiced">$0.00</span>
+                            <span class="stat-label">Total Invoiced</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="invoicesCreated">0</span>
+                            <span class="stat-label">Invoices Created</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="timeSaved">0h</span>
+                            <span class="stat-label">Time Saved</span>
+                        </div>
                     </div>
                 </div>
             </div>
